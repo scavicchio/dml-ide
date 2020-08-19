@@ -33,6 +33,7 @@ class Volume;
 class Material;
 class Anchor;
 class Force;
+class Torque;
 class Loadcase;
 class LatticeConfig;
 
@@ -795,6 +796,21 @@ public:
     vector<Mass *> masses;
 };
 
+class Torque
+{
+public:
+    Torque() {}
+    ~Torque() {}
+
+    Volume * volume;
+    Vec magnitude;
+    double duration;
+    Vec vary;
+    Vec origin; 
+
+    vector<Mass *> masses;
+};
+
 class Actuation
 {
 public:
@@ -838,6 +854,9 @@ public:
 
     vector<Force *> forces;
     map<QString, Force *> forceMap;
+
+    vector<Torque *> torques;
+    map<QString, Torque *> torqueMap;
 
     vector<Actuation *> actuations;
     map<QString, Actuation *> actuationMap;
