@@ -98,7 +98,6 @@ void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> 
 
 
     qDebug() << "Generating" << n << "points with geometry bounding";
-    #pragma omp parallel for
     for (int i = 0; i < n; i++) {
 
         // Generate new point
@@ -117,15 +116,7 @@ void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> 
         for (auto l : lattice) {
             if ((l - p).norm() <= 1E-6) tooClose = true;
         }
-
-        bool meetBounding = true;
-      //  if (bounding) {
-       //     glm::vec3 point = glm::vec3(p.data[0],p.data[1],p.data[2]);
-       //     model_data modelCopy = *bounding;
-       //     meetBounding = modelCopy.isInside(point,0);
-       // }
-
-        #pragma omp critical
-        if (!tooClose && meetBounding) lattice.push_back(p);
+        
+        if (!tooClose) lattice.push_back(p);
     }
 }
