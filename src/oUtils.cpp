@@ -119,11 +119,11 @@ void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> 
         }
 
         bool meetBounding = true;
-        if (bounding) {
-            glm::vec3 point = glm::vec3(p.data[0],p.data[1],p.data[2]);
-            model_data modelCopy = *bounding;
-            meetBounding = modelCopy.isInside(point,0);
-        }
+      //  if (bounding) {
+       //     glm::vec3 point = glm::vec3(p.data[0],p.data[1],p.data[2]);
+       //     model_data modelCopy = *bounding;
+       //     meetBounding = modelCopy.isInside(point,0);
+       // }
 
         #pragma omp critical
         if (!tooClose && meetBounding) lattice.push_back(p);
