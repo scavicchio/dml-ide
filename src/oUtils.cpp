@@ -90,7 +90,7 @@ void oUtils::generateMassesPoisson(double minCut, map<Mass *, vector<Spring *> >
 }
 
 
-void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> mToS, vector<Vec> &lattice, int n, model_data *bounding) {
+void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> mToS, vector<Vec> &lattice, int n) {
 
     qDebug() << "Set probablities";
 
