@@ -467,10 +467,11 @@ void Simulator::run() {
                             qDebug() << "OPTIMIZING";
                             writeMetric(metricFile);
 
-                            if (calcDeflection() > deflection_start * 2) {
+                            //if (calcDeflection() > deflection_start * 2) {
+                            if (false) {
                                 qDebug() << "Deflection" << calcDeflection() << deflection_start;
                                 springRemover->resetLastRemoval();
-				    exit(0);
+				                exit(0);
                             } else {
                                 optimizer->optimize();
                                 qDebug() << "Removed spring post opt" << springRemover->removedSprings.size();
