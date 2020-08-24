@@ -65,20 +65,6 @@ Simulator::Simulator(Simulation *sim, Loader *loader, SimulationConfig *config, 
             if (!(f->vary == Vec(0,0,0))) varyLoad = true;
         }
     }
-    for (Loadcase *l : config->loadQueue) {
-        qDebug() << "Force masses" << l->forces.front()->masses.size();
-        for (Force *f : l->forces) {
-            qDebug() << "AAAA";
-            if (!(f->vary == Vec(0,0,0))) varyLoad = true;
-            qDebug() << "BBBB";
-        }
-        qDebug() << "Torque masses" << l->torques.front()->masses.size();
-        for (Torque *t : l->torques) {
-            qDebug() << "AAAA";
-            if (!(t->vary == Vec(0,0,0))) varyLoad = true;
-            qDebug() << "BBBB";
-        }
-    }
 
     center = getSimCenter();
 
