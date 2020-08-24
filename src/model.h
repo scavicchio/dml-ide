@@ -35,6 +35,7 @@ class Anchor;
 class Force;
 class Loadcase;
 class LatticeConfig;
+class Torque;
 
 struct Bar {
     Vec left;

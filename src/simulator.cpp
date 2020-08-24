@@ -69,6 +69,7 @@ Simulator::Simulator(Simulation *sim, Loader *loader, SimulationConfig *config, 
         qDebug() << "Force masses" << l->forces.front()->masses.size();
         for (Force *f : l->forces) {
             if (!(f->vary == Vec(0,0,0))) varyLoad = true;
+            qDebug() << "AAAA";
         }
     }
 
