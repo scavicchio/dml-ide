@@ -754,8 +754,8 @@ double Simulator::calcDeflection() {
         }
     }
     if (isnan(deflection)) {
-        qDebug() << "NaN found in deflection. Exiting.";
-        exit(1);
+        qDebug() << "NaN found in deflection. Should be Exiting.";
+       // exit(1);
     }
     return deflection;
 }
@@ -1012,7 +1012,7 @@ void Simulator::applyLoad(Loadcase *load) {
                     if (m->extduration < 0) {
                         m->extduration = DBL_MAX;
                     }
-                    torqueMasses ++;
+                    torqueMasses++;
                     valid = true;
                 }
             }
