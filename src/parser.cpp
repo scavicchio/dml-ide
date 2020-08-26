@@ -111,7 +111,7 @@ void Parser::parseVolume(pugi::xml_node dml_vol, Volume *volume) {
     volume->primitive = primitive;
     QString dirpath = QString::fromStdString(filepath);
     dirpath.truncate(dirpath.lastIndexOf("/"));
-    volume->url = QUrl(dirpath + "/" + url);
+    volume->url = QUrl(dirpath + url);
     volume->units = units;
     volume->color = QVector4D(color[0], color[1], color[2], alpha);
 }
