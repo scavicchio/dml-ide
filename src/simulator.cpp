@@ -736,9 +736,15 @@ bool Simulator::dumpCriteriaMet() {
 double Simulator::calcDeflection() {
     double deflection = 0;
     vector<Mass *> points = vector<Mass *>();
-    if (config->load && !config->load->forces.empty()) {
+    if (config->load && (!config->load->forces.empty() || !config->load->torques.empty())) {
         for (Force *f : config->load->forces) {
             for (Mass *m : f->masses) {
+                points.push_back(m);
+                deflection += (m->origpos - m->pos).norm();
+            }
+        }
+        for (Torque *t : config->load->torques) {
+            for (Mass *m : t->masses) {
                 points.push_back(m);
                 deflection += (m->origpos - m->pos).norm();
             }
