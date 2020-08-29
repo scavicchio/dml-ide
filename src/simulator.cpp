@@ -1013,7 +1013,7 @@ void Simulator::applyLoad(Loadcase *load) {
             bool valid = false;
             for (Mass *m : sim->masses) {
                     if (m == tm) {
-                    m->extduration = t->duration + pastLoadTime;
+                    m->extduration = t->duration;
                     qDebug() << "DURATION" << m->extduration;
                     if (m->extduration < 0) {
                         m->extduration = DBL_MAX;
