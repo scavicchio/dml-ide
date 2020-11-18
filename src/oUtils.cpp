@@ -90,11 +90,12 @@ void oUtils::generateMassesPoisson(double minCut, map<Mass *, vector<Spring *> >
 }
 
 
-void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> mToS, vector<Vec> &lattice, int n) {
+void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> mToS, vector<Vec> &lattice, int n, model_data *bounding) {
 
     qDebug() << "Set probablities";
 
-    qDebug() << "Generating" << n << "points";
+    qDebug() << "Generating" << n << "points with geometry bounding";
+    #pragma omp parallel for
     for (int i = 0; i < n; i++) {
 
         // Generate new point
@@ -110,6 +111,21 @@ void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> 
         for (auto l : lattice) {
             if ((l - p).norm() <= 1E-6) tooClose = true;
         }
-        if (!tooClose) lattice.push_back(p);
+
+        bool meetBounding = true;
+        if (bounding) {
+            glm::vec3 point = glm::vec3(p.data[0],p.data[1],p.data[2]);
+            model_data modelCopy = *bounding;
+            meetBounding = modelCopy.isInside(point,0);
+        }
+
+        if (!tooClose && meetBounding) lattice.push_back(p);
     }
+}
+
+bool oUtils::midpointInside(Vec m1, Vec m2, model_data *bounding) {
+        Vec p = (m1+m2)/2;
+        glm::vec3 point = glm::vec3(p.data[0],p.data[1],p.data[2]);
+        model_data modelCopy = *bounding;
+        return modelCopy.isInside(point,0);
 }

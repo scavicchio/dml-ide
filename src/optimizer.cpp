@@ -427,7 +427,8 @@ void SpringRemover::regenerateLattice(SimulationConfig *config) {
     fillMassSpringMap();
 
     deleteGhostSprings();
-    oUtils::generateMassesBounded(minCut, massToSpringMap, lattice, this->n_masses_start * 0.1);
+    model_data *bounding = config->volume->model;
+    oUtils::generateMassesBounded(minCut, massToSpringMap, lattice, this->n_masses_start * 0.1, bounding);
     //oUtils::generateMassesPoisson(minCut, massToSpringMap, lattice);
 
     fillMassSpringMap();
@@ -470,7 +471,7 @@ void SpringRemover::regenerateLattice(SimulationConfig *config) {
             assert(m1 != nullptr);
             assert(m2 != nullptr);
 
-            if ((m1->pos - m2->pos).norm() <= maxS && (m1->pos - m2->pos).norm() > maxS / 4) {
+            if ((m1->pos - m2->pos).norm() <= maxS && (m1->pos - m2->pos).norm() > maxS / 4 && oUtils::midpointInside(m1->pos,m2->pos,bounding)) {
                 Spring t = Spring(*validSprings.front());
                 Spring *s = new Spring(t);
                 s->setMasses(m1, m2);
