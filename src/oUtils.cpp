@@ -119,7 +119,10 @@ void oUtils::generateMassesBounded(double minCut, map<Mass *, vector<Spring *>> 
             meetBounding = modelCopy.isInside(point,0);
         }
 
-        if (!tooClose && meetBounding) lattice.push_back(p);
+        if (!tooClose && meetBounding) {
+		#pragma omp critical
+		 lattice.push_back(p);
+	}
     }
 }
 
